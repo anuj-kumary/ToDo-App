@@ -1,24 +1,60 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import Todolist from './Todolist';
 
-function App() {
+
+const App = () => {
+  const [inputList, finalInput] = useState("");
+  const [submit, newSubmit] = useState([])
+
+  const items = (event) => {
+    finalInput(event.target.value)
+  }
+  const submitBtn = () => {
+    newSubmit((getValue) => {
+      return [...getValue, inputList]
+    });
+    finalInput("")
+  };
+
+  const deleteItems = (id) => {
+    console.log("deleted");
+
+    newSubmit((getValue) => {
+      return getValue.filter((arrElem, index) => {
+        return index !== id;
+      });
+    });
+
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="container">
+        <div className="center-div">
+          <br />
+          <h1>ToDo List</h1>
+          <br />
+          <input type="text" placeholder="Add Items" value={inputList} onChange={items} />
+          <button onClick={submitBtn}> + </button>
+
+          <ol>
+            {
+              submit.map((value,index) => {
+                return( <Todolist 
+                text={value}
+                key={index}
+                id={index}
+                onSelect={deleteItems}
+                
+                 />
+              )
+            })}
+
+          </ol>
+        </div>
+      </div>
+
+    </>
   );
 }
 
