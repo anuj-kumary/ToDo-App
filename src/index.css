@@ -143,9 +143,9 @@ ol li{
   }
 }
 
-@media (max-width:420px){
+@media (max-width:470px){
   .center-div{
-   width: 85%;
+   width: 80%;
    height: 75vh;
   }
 }
